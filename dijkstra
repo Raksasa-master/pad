@@ -1,0 +1,48 @@
+void dijkstra()
+{
+    s1.x=k;
+    s1.v=0;
+    pq.push(s1);
+    memset(dist,0x3f,sizeof(dist));
+    dist[k]=0;
+    memset(bl,0,sizeof(bl));
+    while(!pq.empty())
+    {
+        x=pq.top().x;
+        pq.pop();
+        if(bl[x])
+        {
+            continue;
+        }
+        bl[x]=1;
+        for(i=0;i<ve[x].size();i++)
+        {
+            y=ve[x][i].v;
+            z=ve[x][i].w;
+            if(dist[x]+z<dist[y])
+            {
+                dist[y]=dist[x]+z;
+                s1.x=y;
+                s1.v=dist[y];
+                pq.push(s1);
+            }
+        }
+    }
+}
+int main()
+{
+    scanf("%lld%lld%lld",&n,&m,&k);
+    for(i=0;i<m;i++)
+    {
+        scanf("%lld%lld%lld",&x,&y,&z);
+        s2.v=y;
+        s2.w=z;
+        ve[x].push_back(s2);
+    }
+    dijkstra();
+    for(i=1;i<=n;i++)
+    {
+        printf("%lld ",dist[i]);
+    }
+    return 0;
+}
